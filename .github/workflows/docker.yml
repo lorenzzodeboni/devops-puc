@@ -1,0 +1,30 @@
+name: Build and Test Docker
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build Docker Image
+        run: docker build . --file Dockerfile --tag minha-aplicacao
+
+      - name: Run Docker Container
+        run: docker run -d -p 5000:5000 minha-aplicacao
+
+      - name: Test Docker Container
+        run: |
+          curl http://localhost:5000
