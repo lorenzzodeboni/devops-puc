@@ -1,0 +1,21 @@
+name: Continious Delivery
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  deliver:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: simulando continious delivery
+        uses: actions/upload-artifact@v4
+        with:
+          name: projeto zipado.zip
+          path: |
+            '**.py'
+            README.md
+            
+        
